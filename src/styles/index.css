@@ -14,6 +14,12 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#root {
+  display: inline-grid;
+  grid-template-columns: repeat(2, 0.75fr) repeat(3, 1fr);
+  grid-template-rows: 0.8fr repeat(4, 1fr);
+  grid-row-gap: 2rem;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -26,9 +32,11 @@ a:hover {
 body {
   margin: 0;
   display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
   place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  max-height: 100vh;
 }
 
 h1 {
@@ -36,17 +44,6 @@ h1 {
   line-height: 1.1;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;

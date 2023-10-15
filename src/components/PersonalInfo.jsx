@@ -1,11 +1,18 @@
-function PersonalInfo () {
+import "../styles/PersonalInfo.css";
+
+function PersonalInfo() {
   return (
-    <>
-      <h1>Personal Info</h1>
-      <input type="text" placeholder="Name" />
-      <input type="text" placeholder="Email" />
-      <input type="tel" placeholder="Phone Number" />
-    </>
-  )
+    <div id="personal-info">
+      <input type="text" placeholder="Full Name" className="name" />
+      <input type="text" placeholder="Email" className="email" />
+      <input type="tel" placeholder="Phone Number" className="tel" />
+      <div className="personal-buttons">
+        <button className="cancel-btn">Cancel</button>
+        <button className="submit-btn">
+          <i className="ri-check-line"></i>Done
+        </button>
+      </div>
+    </div>
+  );
 }
 export default PersonalInfo;
