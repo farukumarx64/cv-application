@@ -1,11 +1,13 @@
 import "../styles/NavBar.css";
-
-function NavBar() {
+import PersonalInfo from './PersonalInfo'
+import EducationInfo from './EducationInfo'
+import ExperienceInfo from "./ExperienceInfo";
+function NavBar({onComponentChange}) {
   return (
     <div id="navbar">
-      <button className="nav-button">About</button>
-      <button className="nav-button">Education</button>
-      <button className="nav-button">Experience</button>
+      <button className="nav-button" onClick={() => onComponentChange(<PersonalInfo />)}>About</button>
+      <button className="nav-button" onClick={() => onComponentChange(<EducationInfo />)}>Education</button>
+      <button className="nav-button" onClick={() => onComponentChange(<ExperienceInfo />)}>Experience</button>
     </div>
   );
 }
