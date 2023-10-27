@@ -1,18 +1,71 @@
 import "../styles/PersonalInfo.css";
+import { useFormData } from "./formDataContext";
 
 function PersonalInfo() {
+  const {formData, updateFormData} = useFormData();
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    updateFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = () => {
+    console.log("Full Name:", formData.fullName);
+    console.log("Email:", formData.email);
+    console.log("Phone Number:", formData.phoneNumber);
+
+    updateFormData({
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+    });
+  };
+
+  const handleCancelButton = () => {
+    updateFormData({
+      fullName: "",
+      email: "",
+      phoneNumber: "",
+    });
+  }
+
   return (
     <div id="personal-info">
-      <input type="text" placeholder="Full Name" className="name" />
-      <input type="text" placeholder="Email" className="email" />
-      <input type="tel" placeholder="Phone Number" className="tel" />
+      <input
+        type="text"
+        placeholder="Full Name"
+        className="name"
+        name="fullName"
+        value={formData.fullName}
+        onChange={handleInputChange}
+      />
+      <input
+        type="text"
+        placeholder="Email"
+        className="email"
+        name="email"
+        value={formData.email}
+        onChange={handleInputChange}
+      />
+      <input
+        type="tel"
+        placeholder="Phone Number"
+        className="tel"
+        name="phoneNumber"
+        value={formData.phoneNumber}
+        onChange={handleInputChange}
+      />
       <div className="personal-buttons">
-        <button className="cancel-btn">Cancel</button>
-        <button className="submit-btn">
+        <button className="cancel-btn" onClick={handleCancelButton}>Cancel</button>
+        <button className="submit-btn" onClick={handleSubmit}>
           <i className="ri-check-line"></i>Done
         </button>
       </div>
     </div>
   );
 }
+
 export default PersonalInfo;

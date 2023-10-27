@@ -3,6 +3,7 @@ import { useState } from "react";
 import NavBar from "./components/NavBar";
 import Preview from "./components/Preview";
 import PersonalInfo from "./components/PersonalInfo";
+import { FormDataProvider } from "./components/formDataContext";
 
 function App() {
   const [activeComponent, setActiveComponent] = useState(<PersonalInfo />);
@@ -11,12 +12,14 @@ function App() {
     setActiveComponent(component);
   };
   return (
-    <>
-      <NavBar onComponentChange={handleComponentChange}/>
-      {activeComponent}
+    <FormDataProvider>
+      <>
+        <NavBar onComponentChange={handleComponentChange} />
+        {activeComponent}
 
-      <Preview />
-    </>
+        <Preview />
+      </>
+    </FormDataProvider>
   );
 }
 
