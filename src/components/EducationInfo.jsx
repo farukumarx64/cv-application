@@ -1,9 +1,11 @@
 import "../styles/EducationInfo.css";
 import { useState, useEffect } from "react";
-import { useFormData } from "./formDataContext";
+import { useFormData } from "./FormDataContext";
+import { useFormStorage } from "./FormStorageContext";
 
 const Dropdown = ({ value, handleInputChange, name }) => {
   const [selectedOption, setSelectedOption] = useState(value);
+
 
   useEffect(() => {
     // When the `value` prop changes from the parent, update the selected option
@@ -23,9 +25,9 @@ const Dropdown = ({ value, handleInputChange, name }) => {
 
   return (
     <div className="dropdown fos">
-      <p className="fos-label">
+      <div className="fos-label">
         Field of Study: <p className="fos-answer">{selectedOption}</p>
-      </p>
+      </div>
       <select id="dropdown" value={selectedOption || ""} onChange={handleDropdownChange}>
         <option value="">Select...</option>
         <option value="option1">Option 1</option>
@@ -37,6 +39,8 @@ const Dropdown = ({ value, handleInputChange, name }) => {
 };
 
 export default function EducationInfo() {
+  const {formStorageMap, setFormStorageMap} = useFormStorage();
+  const [educationData, setEducationData] = useState([])
   const {formData, updateFormData} = useFormData({
     educationLevel: "",
     collegeName: "",
@@ -56,6 +60,8 @@ export default function EducationInfo() {
     console.log("college Name:", formData.collegeName);
     console.log("field Of Study:", formData.fieldOfStudy);
 
+    setEducationData([...educationData, formData])
+    console.log(formStorageMap)
     updateFormData({
       educationLevel: "",
       collegeName: "",
@@ -70,6 +76,12 @@ export default function EducationInfo() {
       fieldOfStudy: "",
     });
   };
+
+  useEffect(() => {
+    console.log("Updated Education Data:", educationData);
+  // Update formStorageMap inside the useEffect to ensure it runs after educationData state has been updated
+  setFormStorageMap((prevMap) => new Map(prevMap.set('education', educationData)));
+}, [educationData, setFormStorageMap]);
   return (
     <div id="education-info">
       <input

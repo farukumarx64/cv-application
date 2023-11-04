@@ -1,8 +1,12 @@
+import { useEffect, useState } from 'react';
 import '../styles/ExperienceInfo.css'
-import { useFormData } from './formDataContext';
+import { useFormData } from './FormDataContext';
+import { useFormStorage } from './FormStorageContext';
 
 export default function ExperienceInfo() {
   const {formData, updateFormData} = useFormData();
+  const {formStorageMap, setFormStorageMap} = useFormStorage();
+  const [experienceData, setExperienceData] = useState([])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -18,6 +22,8 @@ export default function ExperienceInfo() {
     console.log("Start Date:", formData.startDate);
     console.log("End Date:", formData.endDate);
 
+    setExperienceData([...experienceData, formData])
+    console.log(formStorageMap)
 
     updateFormData({
       position: "",
@@ -35,6 +41,12 @@ export default function ExperienceInfo() {
       endDate: "",
     });
   }
+
+  useEffect(() => {
+    console.log("Updated Experience Data:", experienceData);
+  // Update formStorageMap inside the useEffect to ensure it runs after experienceData state has been updated
+  setFormStorageMap((prevMap) => new Map(prevMap.set('experience', experienceData)));
+}, [experienceData, setFormStorageMap]);
 
   return (
     <div id="experience-info">
