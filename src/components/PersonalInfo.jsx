@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import "../styles/PersonalInfo.css";
 import { useFormData } from "./FormDataContext";
 import { useFormStorage } from "./FormStorageContext";
@@ -6,7 +5,6 @@ import { useFormStorage } from "./FormStorageContext";
 function PersonalInfo() {
   const {formData, updateFormData} = useFormData();
   const {formStorageMap, setFormStorageMap} = useFormStorage();
-  const [personalData, setPersonalData] = useState([])
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -20,10 +18,9 @@ function PersonalInfo() {
     console.log("Full Name:", formData.fullName);
     console.log("Email:", formData.email);
     console.log("Phone Number:", formData.phoneNumber);
-    setPersonalData([...personalData, formData])
-    console.log(personalData, 'qq')
     console.log(formData, 'ww')
     
+    setFormStorageMap((prevMap) => new Map(prevMap.set('personal', formData)));
     console.log(formStorageMap)
 
     updateFormData({
@@ -40,12 +37,6 @@ function PersonalInfo() {
       phoneNumber: "",
     });
   }
-
-  useEffect(() => {
-    console.log("Updated Personal Data:", personalData);
-  // Update formStorageMap inside the useEffect to ensure it runs after personalData state has been updated
-  setFormStorageMap((prevMap) => new Map(prevMap.set('personal', personalData)));
-}, [personalData, setFormStorageMap]);
 
   return (
     <div id="personal-info">
